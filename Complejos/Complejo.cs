@@ -19,38 +19,45 @@ namespace Complejos
         public readonly Forma forma;
         
 
-        public Complejo(double real = 0, double imaginario = 1,
+        public Complejo(double a = 0.0, double b = 1.0,
             Forma forma = Forma.Binomica)
         {
-            this.a = real;
-            this.b = imaginario;
+            this.a = a;
+            this.b = b;
             this.forma = forma;
         }
 
         public override string ToString()
         {
-            string r = "";
+            if (a == 0.0 && b == 0.0)
+                return "0";
 
-            if (esPuro)
+            string primera = "";
+            string signo = "";
+            string segunda = "";
 
-            /*if (a != 0.0)
-                r += a;
+            if (a != 0.0)
+                primera += a;
 
             if (b != 0.0)
             {
-                if (r != "")
-                    r += " + ";
+                if (b < 0.0)
+                    signo = "-";
 
-                if (b != 1.0)
-                    r += b;
+                double b_abs = Math.Abs(b);
 
-                r += "j";
-            }*/
+                // no mostrar los 1 para j
+                if (b_abs != 1.0)
+                    segunda += b_abs;
 
-            if (r == "")
-                r = "0";
+                segunda += "j";
+            }
 
-            return r;
+            // corregir los espacios
+            if (primera != "" && segunda != "")
+                signo = " " + (signo == "" ? "+" : signo) + " ";
+
+            return primera + signo + segunda;
         }
 
         public bool esPuro()

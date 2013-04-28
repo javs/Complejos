@@ -32,6 +32,8 @@ namespace Complejos.Tests
             binomico.Add(new Complejo(6.0, 2.9));   // 11
             binomico.Add(new Complejo(0.0, 0.0));   // 12
             binomico.Add(new Complejo(-1.0, -1.0)); // 13
+            binomico.Add(new Complejo(-1.0, 0.0));  // 14
+            binomico.Add(new Complejo(0.0, -1.0));  // 15
         }
 
         [Test]
@@ -48,9 +50,9 @@ namespace Complejos.Tests
             Assert.AreEqual(binomico[0].ToString(),  "j");
             Assert.AreEqual(binomico[1].ToString(),  "1 + j");
             Assert.AreEqual(binomico[2].ToString(),  "1");
-            Assert.AreEqual(binomico[3].ToString(),  "j");
+            Assert.AreEqual(binomico[3].ToString(),      "j");
             Assert.AreEqual(binomico[4].ToString(),  "2");
-            Assert.AreEqual(binomico[5].ToString(),  "2j");
+            Assert.AreEqual(binomico[5].ToString(),     "2j");
             Assert.AreEqual(binomico[6].ToString(),  "1 + j");
             Assert.AreEqual(binomico[7].ToString(),  "2 + 2j");
             Assert.AreEqual(binomico[8].ToString(),  "1 + 2" + NumberFormatInfo.CurrentInfo.NumberDecimalSeparator + "1j");
@@ -58,7 +60,9 @@ namespace Complejos.Tests
             Assert.AreEqual(binomico[10].ToString(), "5" + NumberFormatInfo.CurrentInfo.NumberDecimalSeparator + "2 + 5j");
             Assert.AreEqual(binomico[11].ToString(), "6 + 2" + NumberFormatInfo.CurrentInfo.NumberDecimalSeparator + "9j");
             Assert.AreEqual(binomico[12].ToString(), "0");
-            Assert.AreEqual(binomico[13].ToString(), "1 - 1j");
+            Assert.AreEqual(binomico[13].ToString(), "-1 - j");
+            Assert.AreEqual(binomico[14].ToString(), "-1");
+            Assert.AreEqual(binomico[15].ToString(),     "-j");
         }
 
         [Test]
