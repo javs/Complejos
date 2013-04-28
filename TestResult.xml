@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="D:\Javi\UTN\MatSup\Complejos\Test.nunit" total="2" errors="2" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-04-27" time="22:32:10">
+  <environment nunit-version="2.6.2.12296" clr-version="2.0.50727.5466" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="D:\Javi\UTN\MatSup\Complejos" machine-name="HOMESTATION" user="Javier" user-domain="homestation" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Project" name="D:\Javi\UTN\MatSup\Complejos\Test.nunit" executed="True" result="Failure" success="False" time="0.119" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="D:\Javi\UTN\MatSup\Complejos\Test\bin\Debug\Test.dll" executed="True" result="Failure" success="False" time="0.105" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Complejos" executed="True" result="Failure" success="False" time="0.105" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Tests" executed="True" result="Failure" success="False" time="0.104" asserts="0">
+                <results>
+                  <test-suite type="TestFixture" name="TestComplejos" executed="True" result="Failure" success="False" time="0.103" asserts="0">
+                    <results>
+                      <test-case name="Complejos.Tests.TestComplejos.testConstructorBinomico" executed="True" result="Error" success="False" time="0.025" asserts="0">
+                        <failure>
+                          <message><![CDATA[SetUp : System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
+                          <stack-trace><![CDATA[at Complejos.Tests.TestComplejos.Init() in d:\Javi\UTN\MatSup\Complejos\Test\TestComplejos.cs:line 19
+]]></stack-trace>
+                        </failure>
+                      </test-case>
+                      <test-case name="Complejos.Tests.TestComplejos.testToString" executed="True" result="Error" success="False" time="0.001" asserts="0">
+                        <failure>
+                          <message><![CDATA[SetUp : System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
+                          <stack-trace><![CDATA[at Complejos.Tests.TestComplejos.Init() in d:\Javi\UTN\MatSup\Complejos\Test\TestComplejos.cs:line 19
+]]></stack-trace>
+                        </failure>
+                      </test-case>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
