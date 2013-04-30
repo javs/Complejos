@@ -75,6 +75,29 @@ namespace Complejos
             return new Complejo(izq.a - der.a, izq.b - der.b);
         }
 
+        public static Complejo operator *(Complejo izq, Complejo der)
+        {
+            return new Complejo(izq.a * der.a - izq.b * der.b, izq.a * der.b + izq.b * der.a);
+        }
+
+        public static Complejo operator /(Complejo izq, Complejo der)
+        {
+            var b_conj = der.Conjugado();
+
+            var numerador = izq * b_conj;
+
+            var divisor = Math.Pow(der.a,2) + Math.Pow(der.b,2);
+  
+            return new Complejo (Math.Round(numerador.a / divisor,2), Math.Round(numerador.b / divisor,2));
+
+        }
+
+        public Complejo Conjugado()
+        {
+            return new Complejo(a,-b);
+        }
+
+
         public override bool Equals(object otro)
         {
             if (otro == null)

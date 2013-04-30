@@ -25,7 +25,7 @@ namespace Complejos
 
             if (!m.Success)
                 throw new ErrorDeSintaxisException(
-                    "Se esperan dos expresioned de la forma (a,b) combinadas con un operador");
+                    "Se esperan dos expresiones de la forma (a,b) combinadas con un operador");
 
             var format = new NumberFormatInfo();
             format.NumberDecimalSeparator = ".";
@@ -45,7 +45,9 @@ namespace Complejos
                 case "-":
                     return (op1 - op2).ToString();
                 case "*":
+                    return (op1 * op2).ToString();
                 case "/":
+                    return (op1 / op2).ToString();
                     throw new ErrorDeSintaxisException(
                         string.Format("Operacion \"{0}\" no implementada.", m.Groups[3].Value));
                 default:
