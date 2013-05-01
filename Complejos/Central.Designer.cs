@@ -54,6 +54,7 @@
             this.Operacion.Size = new System.Drawing.Size(332, 39);
             this.Operacion.TabIndex = 1;
             this.Operacion.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
+            this.Operacion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
             // 
             // Resultado
             // 

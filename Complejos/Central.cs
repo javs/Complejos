@@ -37,5 +37,11 @@ namespace Complejos
         {
             lEstado.Text = "";
         }
+
+        private void Operacion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+                Igual_Click(sender, new EventArgs());
+        }
     }
 }

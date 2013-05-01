@@ -19,7 +19,7 @@ namespace Complejos
         {
             Match m = Regex.Match(texto,
                 @"\(\s*(-?[\d]+.?[\d]*)\s*,\s*(-?[\d]+.?[\d]*)\s*\)" +    // (a,b)
-                @"\s*(\S)\s*" +                         // <operador>
+                @"\s*(\S)\s*" +                                           // <operador>
                 @"\(\s*(-?[\d]+.?[\d]*)\s*,\s*(-?[\d]+.?[\d]*)\s*\)",     // (a,b)
                 RegexOptions.Compiled);
 
