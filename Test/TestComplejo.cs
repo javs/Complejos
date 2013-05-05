@@ -72,5 +72,41 @@ namespace Complejos.Tests
             Assert.AreEqual(binomico[7] - binomico[7], binomico[12]);
             Assert.AreEqual(binomico[9] - binomico[6], binomico[2]);
         }
+
+        [Test]
+        public void testMultiplicacion()
+        {
+            Assert.AreEqual(new Complejo(0.0, 0.0) * new Complejo(1.0, 0.0), new Complejo(0.0, 0.0));
+            Assert.AreEqual(new Complejo(0.0, 0.0) * new Complejo(0.0, 1.0), new Complejo(0.0, 0.0));
+
+            Assert.AreEqual(new Complejo(0.0, 2.0) * new Complejo(2.0, 2.0), new Complejo(-4.0, 4.0));
+            Assert.AreEqual(new Complejo(-1.0, 2.0) * new Complejo(-2.0, -1.0), new Complejo(4.0, -3.0));
+        }
+
+        [Test]
+        public void testComplemento()
+        {
+            Assert.AreEqual(new Complejo(0.0, 0.0).Conjugado(), new Complejo(0.0, 0.0));
+            Assert.AreEqual(new Complejo(1.0, 1.0).Conjugado(), new Complejo(1.0, -1.0));
+            Assert.AreEqual(new Complejo(-1.0, 0.0).Conjugado(), new Complejo(-1.0, 0.0));
+            Assert.AreEqual(new Complejo(-1.0, -4.0).Conjugado(), new Complejo(-1.0, 4.0));
+        }
+
+        [Test]
+        public void testDivision()
+        {
+            Assert.AreEqual(new Complejo(0.0, 0.0) / new Complejo(1.0, 0.0), new Complejo(0.0, 0.0));
+            Assert.AreEqual(new Complejo(0.0, 0.0) / new Complejo(0.0, 1.0), new Complejo(0.0, 0.0));
+
+            {
+                Complejo nan = new Complejo(1.0, 1.0) / new Complejo(0.0, 0.0);
+
+                Assert.IsNaN(nan.a);
+                Assert.IsNaN(nan.b);
+            }
+
+            Assert.AreEqual(new Complejo(0.0, 2.0) / new Complejo(2.0, 2.0), new Complejo(0.5, 0.5));
+            Assert.AreEqual(new Complejo(-1.0, 2.0) / new Complejo(-2.0, -1.0), new Complejo(0.0, -1.0));
+        }
     }
 }
