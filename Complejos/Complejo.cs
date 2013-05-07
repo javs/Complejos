@@ -8,10 +8,13 @@ namespace Complejos
 {
     public class Complejo
     {
+        public const double PI_2 = Math.PI * 2;
+        public const double Epsilon = 1E-13;
+
         public enum Forma
         {
             Binomica,
-            //Polar,
+            Polar,
         }
         
         public readonly double a;
@@ -25,21 +28,96 @@ namespace Complejos
             this.a = a;
             this.b = b;
             this.forma = forma;
+
+            if (forma == Forma.Polar)
+            {
+                // correccion del angulo asi queda siempre entre 0 < b < 2 pi
+                if (Math.Abs(b) >= PI_2)
+                    this.b = b % PI_2;
+                
+                if (this.b < 0.0)
+                    this.b += 2 * Math.PI;
+            }
+        }
+
+        public static bool Equals(double x, double y, double epsilon = Epsilon)
+        {
+            return Math.Abs(x - y) < epsilon;
+        }
+
+        public static bool NotEquals(double x, double y, double epsilon = Epsilon)
+        {
+            return Math.Abs(x - y) >= epsilon;
         }
 
         public override string ToString()
         {
-            if (a == 0.0 && b == 0.0)
+            switch (forma)
+            {
+                case Forma.Binomica:
+                    return ToStringBinomico();
+                case Forma.Polar:
+                    return ToStringPolar();
+                default:
+                    return "??";
+            }
+        }
+
+        public Complejo Convertir(Forma aForma)
+        {
+            if (this.forma == Forma.Binomica)
+            {
+                if (aForma == Forma.Polar)
+                {
+                    double r, o;
+
+                    r = Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
+                    o = Math.Atan2(b, a);
+
+                    return new Complejo(r, o, Forma.Polar);
+                }
+                else if (aForma == Forma.Binomica)
+                {
+                    return this;
+                }
+            }
+            else if (this.forma == Forma.Polar)
+            {
+                if (aForma == Forma.Binomica)
+                    return new Complejo(a * Math.Cos(b), a * Math.Sin(b));
+                else if (aForma == Forma.Polar)
+                    return this;
+            }
+            
+            throw new Exception("Conversion no esperada a " + aForma);
+        }
+
+        public string ToStringPolar()
+        {
+            Convertir(Forma.Polar);
+
+            return string.Format("[{0};{1}]",
+                a,
+                Equals(b, 0)
+                    ? b.ToString()
+                    : (b / Math.PI) + "pi");
+        }
+
+        public string ToStringBinomico()
+        {
+            Convertir(Forma.Binomica);
+
+            if (Equals(a, 0.0) && Equals(b, 0.0))
                 return "0";
 
             string primera = "";
             string signo = "";
             string segunda = "";
 
-            if (a != 0.0)
+            if (NotEquals(a, 0.0))
                 primera += a;
 
-            if (b != 0.0)
+            if (NotEquals(b, 0.0))
             {
                 if (b < 0.0)
                     signo = "-";
@@ -47,7 +125,7 @@ namespace Complejos
                 double b_abs = Math.Abs(b);
 
                 // no mostrar los 1 para j
-                if (b_abs != 1.0)
+                if (NotEquals(b_abs, 1.0))
                     segunda += b_abs;
 
                 segunda += "j";
@@ -94,9 +172,8 @@ namespace Complejos
 
         public Complejo Conjugado()
         {
-            return new Complejo(a,-b);
+            return new Complejo(a,-b, forma);
         }
-
 
         public override bool Equals(object otro)
         {
@@ -108,7 +185,7 @@ namespace Complejos
             if ((System.Object)c == null)
                 return false;
 
-            return this.a == c.a && this.b == c.b;
+            return Equals(this.a, c.a) && Equals(this.b, c.b);
         }
     }
 }

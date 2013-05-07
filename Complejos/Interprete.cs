@@ -17,26 +17,43 @@ namespace Complejos
     {
         public string Operacion(string texto)
         {
-            Match m = Regex.Match(texto,
+            //! \todo mejorar
+            Match m;
+            Complejo.Forma forma;
+            
+            m = Regex.Match(texto,
                 @"\(\s*(-?[\d]+.?[\d]*)\s*,\s*(-?[\d]+.?[\d]*)\s*\)" +    // (a,b)
                 @"\s*(\S)\s*" +                                           // <operador>
                 @"\(\s*(-?[\d]+.?[\d]*)\s*,\s*(-?[\d]+.?[\d]*)\s*\)",     // (a,b)
                 RegexOptions.Compiled);
 
-            if (!m.Success)
-                throw new ErrorDeSintaxisException(
-                    "Se esperan dos expresiones de la forma (a,b) combinadas con un operador");
+            if (m.Success)
+                forma = Complejo.Forma.Binomica;
+            else
+            {
+                m = Regex.Match(texto,
+                    @"\[\s*(-?[\d]+.?[\d]*)\s*;\s*(-?[\d]+.?[\d]*)\s*\]" +    // [a;b]
+                    @"\s*(\S)\s*" +                                           // <operador>
+                    @"\[\s*(-?[\d]+.?[\d]*)\s*;\s*(-?[\d]+.?[\d]*)\s*\]",     // [a;b]
+                    RegexOptions.Compiled);
 
-            var format = new NumberFormatInfo();
-            format.NumberDecimalSeparator = ".";
+                if (m.Success)
+                    forma = Complejo.Forma.Polar;
+                else
+                    throw new ErrorDeSintaxisException(
+                        "Se esperan dos expresiones de la forma (a,b) o [a;b] operadas");
+            }
+
+            var formato = new NumberFormatInfo();
+            formato.NumberDecimalSeparator = ".";
 
             var op1 = new Complejo(
-                double.Parse(m.Groups[1].Value, format),
-                double.Parse(m.Groups[2].Value, format));
+                double.Parse(m.Groups[1].Value, formato),
+                double.Parse(m.Groups[2].Value, formato), forma);
 
             var op2 = new Complejo(
-                double.Parse(m.Groups[4].Value, format),
-                double.Parse(m.Groups[5].Value, format));
+                double.Parse(m.Groups[4].Value, formato),
+                double.Parse(m.Groups[5].Value, formato), forma);
 
             switch (m.Groups[3].Value)
             {
@@ -48,8 +65,6 @@ namespace Complejos
                     return (op1 * op2).ToString();
                 case "/":
                     return (op1 / op2).ToString();
-                    throw new ErrorDeSintaxisException(
-                        string.Format("Operacion \"{0}\" no implementada.", m.Groups[3].Value));
                 default:
                     throw new ErrorDeSintaxisException(
                         string.Format("Operador \"{0}\" desconocido.", m.Groups[3].Value));

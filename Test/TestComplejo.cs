@@ -10,13 +10,14 @@ namespace Complejos.Tests
     [TestFixture]
     public class TestComplejo
     {
-        List<Complejo> binomico;
+        string s;
+
+        List<Complejo> binomico = new List<Complejo>();
+        List<Complejo> polar = new List<Complejo>();
 
         [SetUp]
         public void Init()
         {
-            binomico = new List<Complejo>();
-
             // Algunos numeros complejos de prueba en forma binomica
             binomico.Add(new Complejo());           // 0
             binomico.Add(new Complejo(1.0));        // 1
@@ -34,35 +35,88 @@ namespace Complejos.Tests
             binomico.Add(new Complejo(-1.0, -1.0)); // 13
             binomico.Add(new Complejo(-1.0, 0.0));  // 14
             binomico.Add(new Complejo(0.0, -1.0));  // 15
+
+            // forma polar
+            polar.Add(new Complejo(1.0, 0.0, Complejo.Forma.Polar));
+            polar.Add(new Complejo(1.0, 1.0 * Math.PI, Complejo.Forma.Polar));
+            polar.Add(new Complejo(1.0, 1.0 * Math.PI, Complejo.Forma.Polar));
+
+            s = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
         }
 
         [Test]
         public void testConstructorBinomico()
         {
-            Assert.AreEqual(binomico[0].a,  0.0); Assert.AreEqual(binomico[0].b,  1.0);
-            Assert.AreEqual(binomico[1].a,  1.0); Assert.AreEqual(binomico[1].b,  1.0);
-            Assert.AreEqual(binomico[11].a, 6.0); Assert.AreEqual(binomico[11].b, 2.9);
+            Assert.AreEqual(0.0, binomico[0].a);    Assert.AreEqual(1.0, binomico[0].b);
+            Assert.AreEqual(1.0, binomico[1].a);    Assert.AreEqual(1.0, binomico[1].b);
+            Assert.AreEqual(6.0, binomico[11].a);   Assert.AreEqual(2.9, binomico[11].b);
+        }
+
+        [Test]
+        public void testConstructorPolar()
+        {
+            Assert.AreEqual(1.0,            new Complejo(1.0, 1.0, Complejo.Forma.Polar).a);
+            Assert.AreEqual(Math.PI,        new Complejo(1.0, Math.PI, Complejo.Forma.Polar).b);
+
+            Assert.That(new Complejo(1.0, Math.PI * 3, Complejo.Forma.Polar).b,
+                Is.EqualTo(Math.PI)
+                    .Within(Complejo.Epsilon));
+
+            Assert.That(new Complejo(1.0, Math.PI * 8.25, Complejo.Forma.Polar).b,
+                Is.EqualTo(0.25 * Math.PI)
+                    .Within(Complejo.Epsilon));
+
+            Assert.That(new Complejo(1.0, Math.PI * -5.5, Complejo.Forma.Polar).b,
+                Is.EqualTo(0.5 * Math.PI)
+                    .Within(Complejo.Epsilon));           
         }
 
         [Test]
         public void testToString()
         {
-            Assert.AreEqual(binomico[0].ToString(),  "j");
-            Assert.AreEqual(binomico[1].ToString(),  "1 + j");
-            Assert.AreEqual(binomico[2].ToString(),  "1");
-            Assert.AreEqual(binomico[3].ToString(),      "j");
-            Assert.AreEqual(binomico[4].ToString(),  "2");
-            Assert.AreEqual(binomico[5].ToString(),     "2j");
-            Assert.AreEqual(binomico[6].ToString(),  "1 + j");
-            Assert.AreEqual(binomico[7].ToString(),  "2 + 2j");
-            Assert.AreEqual(binomico[8].ToString(),  "1 + 2" + NumberFormatInfo.CurrentInfo.NumberDecimalSeparator + "1j");
-            Assert.AreEqual(binomico[9].ToString(),  "2 + j");
-            Assert.AreEqual(binomico[10].ToString(), "5" + NumberFormatInfo.CurrentInfo.NumberDecimalSeparator + "2 + 5j");
-            Assert.AreEqual(binomico[11].ToString(), "6 + 2" + NumberFormatInfo.CurrentInfo.NumberDecimalSeparator + "9j");
-            Assert.AreEqual(binomico[12].ToString(), "0");
-            Assert.AreEqual(binomico[13].ToString(), "-1 - j");
-            Assert.AreEqual(binomico[14].ToString(), "-1");
-            Assert.AreEqual(binomico[15].ToString(),     "-j");
+            
+            Assert.AreEqual(    "j",            binomico[0].ToString());
+            Assert.AreEqual("1 + j",            binomico[1].ToString());
+            Assert.AreEqual("1",                binomico[2].ToString());
+            Assert.AreEqual(    "j",            binomico[3].ToString());
+            Assert.AreEqual("2",                binomico[4].ToString());
+            Assert.AreEqual(   "2j",            binomico[5].ToString());
+            Assert.AreEqual("1 + j",            binomico[6].ToString());
+            Assert.AreEqual("2 + 2j",           binomico[7].ToString());
+            Assert.AreEqual("1 + 2" + s + "1j", binomico[8].ToString());
+            Assert.AreEqual("2 + j",            binomico[9].ToString());
+            Assert.AreEqual("5" + s + "2 + 5j", binomico[10].ToString());
+            Assert.AreEqual("6 + 2" + s + "9j", binomico[11].ToString());
+            Assert.AreEqual("0",                binomico[12].ToString());
+            Assert.AreEqual("-1 - j",           binomico[13].ToString());
+            Assert.AreEqual("-1",               binomico[14].ToString());
+            Assert.AreEqual(    "-j",           binomico[15].ToString());
+
+            double dentroDelError = Double.Epsilon; // el error de Double es mas chico que nuestro error
+
+            Assert.AreEqual("0", new Complejo(dentroDelError, dentroDelError).ToString());
+            Assert.AreEqual("1", new Complejo(1 + dentroDelError, dentroDelError).ToString());
+            Assert.AreEqual("j", new Complejo(dentroDelError, 1 + dentroDelError).ToString());
+
+            Assert.AreEqual("[1;0]",            polar[0].ToString());
+            Assert.AreEqual("[1;1pi]",          polar[1].ToString());
+        }
+
+        [Test]
+        public void testIgualdad()
+        {
+            Assert.AreEqual(new Complejo(1, 1), new Complejo(1, 1));
+            Assert.AreNotEqual(new Complejo(1, 1), new Complejo(1, 2));
+
+            Assert.AreEqual(new Complejo(1, 1, Complejo.Forma.Polar), new Complejo(1, 1, Complejo.Forma.Polar));
+            Assert.AreNotEqual(new Complejo(1, 1, Complejo.Forma.Polar), new Complejo(1, 2, Complejo.Forma.Polar));
+            Assert.AreNotEqual(new Complejo(2, 1, Complejo.Forma.Polar), new Complejo(1, 2, Complejo.Forma.Polar));
+
+            Assert.AreNotEqual(new Complejo(1, 1, Complejo.Forma.Binomica), new Complejo(1, 1, Complejo.Forma.Polar));
+
+            Assert.AreEqual(
+                new Complejo(1, Math.PI / 4, Complejo.Forma.Polar),
+                new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, Complejo.Forma.Binomica));    
         }
 
         [Test]
@@ -76,27 +130,27 @@ namespace Complejos.Tests
         [Test]
         public void testMultiplicacion()
         {
-            Assert.AreEqual(new Complejo(0.0, 0.0) * new Complejo(1.0, 0.0), new Complejo(0.0, 0.0));
-            Assert.AreEqual(new Complejo(0.0, 0.0) * new Complejo(0.0, 1.0), new Complejo(0.0, 0.0));
+            Assert.AreEqual(new Complejo( 0.0,  0.0), new Complejo( 0.0, 0.0) * new Complejo( 1.0,  0.0));
+            Assert.AreEqual(new Complejo( 0.0,  0.0), new Complejo( 0.0, 0.0) * new Complejo( 0.0,  1.0));
 
-            Assert.AreEqual(new Complejo(0.0, 2.0) * new Complejo(2.0, 2.0), new Complejo(-4.0, 4.0));
-            Assert.AreEqual(new Complejo(-1.0, 2.0) * new Complejo(-2.0, -1.0), new Complejo(4.0, -3.0));
+            Assert.AreEqual(new Complejo(-4.0,  4.0), new Complejo( 0.0, 2.0) * new Complejo( 2.0,  2.0));
+            Assert.AreEqual(new Complejo( 4.0, -3.0), new Complejo(-1.0, 2.0) * new Complejo(-2.0, -1.0));
         }
 
         [Test]
-        public void testComplemento()
+        public void testConjugado()
         {
-            Assert.AreEqual(new Complejo(0.0, 0.0).Conjugado(), new Complejo(0.0, 0.0));
-            Assert.AreEqual(new Complejo(1.0, 1.0).Conjugado(), new Complejo(1.0, -1.0));
-            Assert.AreEqual(new Complejo(-1.0, 0.0).Conjugado(), new Complejo(-1.0, 0.0));
-            Assert.AreEqual(new Complejo(-1.0, -4.0).Conjugado(), new Complejo(-1.0, 4.0));
+            Assert.AreEqual(new Complejo(0.0,  0.0), new Complejo(0.0, 0.0).Conjugado());
+            Assert.AreEqual(new Complejo(1.0, -1.0), new Complejo(1.0, 1.0).Conjugado());
+            Assert.AreEqual(new Complejo(-1.0, 0.0), new Complejo(-1.0, 0.0).Conjugado());
+            Assert.AreEqual(new Complejo(-1.0, 4.0), new Complejo(-1.0, -4.0).Conjugado());
         }
 
         [Test]
         public void testDivision()
         {
-            Assert.AreEqual(new Complejo(0.0, 0.0) / new Complejo(1.0, 0.0), new Complejo(0.0, 0.0));
-            Assert.AreEqual(new Complejo(0.0, 0.0) / new Complejo(0.0, 1.0), new Complejo(0.0, 0.0));
+            Assert.AreEqual(new Complejo(0.0, 0.0), new Complejo(0.0, 0.0) / new Complejo(1.0, 0.0));
+            Assert.AreEqual(new Complejo(0.0, 0.0), new Complejo(0.0, 0.0) / new Complejo(0.0, 1.0));
 
             {
                 Complejo nan = new Complejo(1.0, 1.0) / new Complejo(0.0, 0.0);
@@ -105,8 +159,16 @@ namespace Complejos.Tests
                 Assert.IsNaN(nan.b);
             }
 
-            Assert.AreEqual(new Complejo(0.0, 2.0) / new Complejo(2.0, 2.0), new Complejo(0.5, 0.5));
-            Assert.AreEqual(new Complejo(-1.0, 2.0) / new Complejo(-2.0, -1.0), new Complejo(0.0, -1.0));
+            Assert.AreEqual(new Complejo(0.5,  0.5), new Complejo(0.0, 2.0)  / new Complejo(2.0, 2.0));
+            Assert.AreEqual(new Complejo(0.0, -1.0), new Complejo(-1.0, 2.0) / new Complejo(-2.0, -1.0));
+        }
+
+        [Test]
+        public void testToPolar()
+        {
+            Assert.AreEqual(
+                new Complejo(1, Math.PI / 4, Complejo.Forma.Polar),
+                new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2).Convertir(Complejo.Forma.Polar));
         }
     }
 }
