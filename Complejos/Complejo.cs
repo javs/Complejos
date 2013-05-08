@@ -20,6 +20,7 @@ namespace Complejos
         public readonly double a;
         public readonly double b;
         public readonly Forma forma;
+        public int precision { get; set; }
         
 
         public Complejo(double a = 0.0, double b = 1.0,
@@ -28,6 +29,7 @@ namespace Complejos
             this.a = a;
             this.b = b;
             this.forma = forma;
+            this.precision = 2;
 
             if (forma == Forma.Polar)
             {
@@ -69,12 +71,10 @@ namespace Complejos
             {
                 if (aForma == Forma.Polar)
                 {
-                    double r, o;
-
-                    r = Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
-                    o = Math.Atan2(b, a);
-
-                    return new Complejo(r, o, Forma.Polar);
+                    return new Complejo(
+                        Math.Sqrt(Math.Pow(a, 2.0) + Math.Pow(b, 2.0)),
+                        Math.Atan2(b, a),
+                        Forma.Polar);
                 }
                 else if (aForma == Forma.Binomica)
                 {
@@ -84,7 +84,10 @@ namespace Complejos
             else if (this.forma == Forma.Polar)
             {
                 if (aForma == Forma.Binomica)
-                    return new Complejo(a * Math.Cos(b), a * Math.Sin(b));
+                    return new Complejo(
+                        a * Math.Cos(b),
+                        a * Math.Sin(b),
+                        Forma.Binomica);
                 else if (aForma == Forma.Polar)
                     return this;
             }
@@ -97,10 +100,10 @@ namespace Complejos
             Convertir(Forma.Polar);
 
             return string.Format("[{0};{1}]",
-                a,
+                Math.Round(a, precision),
                 Equals(b, 0)
-                    ? b.ToString()
-                    : (b / Math.PI) + "pi");
+                    ? Math.Round(b, precision).ToString()
+                    : Math.Round(b / Math.PI, precision) + "pi");
         }
 
         public string ToStringBinomico()
@@ -115,7 +118,7 @@ namespace Complejos
             string segunda = "";
 
             if (NotEquals(a, 0.0))
-                primera += a;
+                primera += Math.Round(a, precision);
 
             if (NotEquals(b, 0.0))
             {
@@ -126,7 +129,7 @@ namespace Complejos
 
                 // no mostrar los 1 para j
                 if (NotEquals(b_abs, 1.0))
-                    segunda += b_abs;
+                    segunda += Math.Round(b_abs, precision);
 
                 segunda += "j";
             }
@@ -138,36 +141,59 @@ namespace Complejos
             return primera + signo + segunda;
         }
 
-        public bool esPuro()
-        {
-            return a == 0.0;
-        }
-
         public static Complejo operator +(Complejo izq, Complejo der)
         {
-            return new Complejo(izq.a + der.a, izq.b + der.b);
+            izq = izq.Convertir(Forma.Binomica);
+            der = der.Convertir(Forma.Binomica);
+
+            return new Complejo(izq.a + der.a, izq.b + der.b, Forma.Binomica);
         }
 
         public static Complejo operator -(Complejo izq, Complejo der)
         {
-            return new Complejo(izq.a - der.a, izq.b - der.b);
+            izq = izq.Convertir(Forma.Binomica);
+            der = der.Convertir(Forma.Binomica);
+
+            return new Complejo(izq.a - der.a, izq.b - der.b, Forma.Binomica);
         }
 
         public static Complejo operator *(Complejo izq, Complejo der)
         {
-            return new Complejo(izq.a * der.a - izq.b * der.b, izq.a * der.b + izq.b * der.a);
+            if (izq.forma != der.forma)
+            {
+                izq = izq.Convertir(Forma.Polar);
+                der = der.Convertir(Forma.Polar);
+            }
+
+            if (izq.forma == Forma.Binomica)
+                return new Complejo(
+                    izq.a * der.a - izq.b * der.b,
+                    izq.a * der.b + izq.b * der.a,
+                    Forma.Binomica);
+            else
+                return new Complejo(izq.a * der.a, izq.b + der.b, Forma.Polar);
         }
 
         public static Complejo operator /(Complejo izq, Complejo der)
         {
-            var b_conj = der.Conjugado();
+            if (izq.forma != der.forma)
+            {
+                izq = izq.Convertir(Forma.Polar);
+                der = der.Convertir(Forma.Polar);
+            }
 
-            var numerador = izq * b_conj;
+            if (izq.forma == Forma.Binomica)
+            {
+                var numerador = izq * der.Conjugado();
+                var divisor = Math.Pow(der.a, 2) + Math.Pow(der.b, 2);
 
-            var divisor = Math.Pow(der.a,2) + Math.Pow(der.b,2);
-  
-            return new Complejo (Math.Round(numerador.a / divisor,2), Math.Round(numerador.b / divisor,2));
-
+                return new Complejo(
+                    numerador.a / divisor,
+                    numerador.b / divisor,
+                    Forma.Binomica);
+            }
+            else
+                return new Complejo(izq.a / der.a, izq.b - der.b, Forma.Polar);
         }
 
         public Complejo Conjugado()
@@ -185,7 +211,10 @@ namespace Complejos
             if ((System.Object)c == null)
                 return false;
 
-            return Equals(this.a, c.a) && Equals(this.b, c.b);
+            if (this.forma == c.forma)
+                return Equals(this.a, c.a) && Equals(this.b, c.b);
+            else // Si sus formas son distintas, convertir a binomico ya que es mas barato
+                return this.Convertir(Forma.Binomica).Equals(c.Convertir(Forma.Binomica));
         }
     }
 }

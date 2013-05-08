@@ -125,6 +125,13 @@ namespace Complejos.Tests
             Assert.AreEqual(binomico[2] + binomico[3], binomico[6]);
             Assert.AreEqual(binomico[7] - binomico[7], binomico[12]);
             Assert.AreEqual(binomico[9] - binomico[6], binomico[2]);
+
+            {
+                var uno = new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, Complejo.Forma.Binomica);
+                var otro_igual = new Complejo(1, Math.PI / 4, Complejo.Forma.Polar);
+
+                Assert.AreEqual(new Complejo(0, 0), uno - otro_igual);
+            }
         }
 
         [Test]
@@ -135,6 +142,12 @@ namespace Complejos.Tests
 
             Assert.AreEqual(new Complejo(-4.0,  4.0), new Complejo( 0.0, 2.0) * new Complejo( 2.0,  2.0));
             Assert.AreEqual(new Complejo( 4.0, -3.0), new Complejo(-1.0, 2.0) * new Complejo(-2.0, -1.0));
+
+            Assert.That(
+                new Complejo(1.0, Math.PI / 4.0, Complejo.Forma.Polar) *
+                new Complejo(2.0, Math.PI / 2.0, Complejo.Forma.Polar),
+                    Is.EqualTo(new Complejo(2.0, Math.PI * 0.75, Complejo.Forma.Polar))
+                        .Within(Complejo.Epsilon));
         }
 
         [Test]
@@ -144,6 +157,18 @@ namespace Complejos.Tests
             Assert.AreEqual(new Complejo(1.0, -1.0), new Complejo(1.0, 1.0).Conjugado());
             Assert.AreEqual(new Complejo(-1.0, 0.0), new Complejo(-1.0, 0.0).Conjugado());
             Assert.AreEqual(new Complejo(-1.0, 4.0), new Complejo(-1.0, -4.0).Conjugado());
+
+            Assert.AreEqual(
+                new Complejo(1.0, 1.75 * Math.PI, Complejo.Forma.Polar),
+                new Complejo(1.0, Math.PI / 4.0, Complejo.Forma.Polar).Conjugado());
+
+            Assert.AreEqual(
+                new Complejo(2.0, 0.75 * Math.PI, Complejo.Forma.Polar),
+                new Complejo(2.0, 1.25 * Math.PI, Complejo.Forma.Polar).Conjugado());
+
+            Assert.AreEqual(
+                new Complejo(-2.0, 0.25 * Math.PI, Complejo.Forma.Polar),
+                new Complejo(-2.0, 1.75 * Math.PI, Complejo.Forma.Polar).Conjugado());
         }
 
         [Test]
@@ -161,6 +186,12 @@ namespace Complejos.Tests
 
             Assert.AreEqual(new Complejo(0.5,  0.5), new Complejo(0.0, 2.0)  / new Complejo(2.0, 2.0));
             Assert.AreEqual(new Complejo(0.0, -1.0), new Complejo(-1.0, 2.0) / new Complejo(-2.0, -1.0));
+
+            Assert.That(
+                new Complejo(1.0, Math.PI / 4.0, Complejo.Forma.Polar) /
+                new Complejo(2.0, Math.PI / 2.0, Complejo.Forma.Polar),
+                    Is.EqualTo(new Complejo(0.5, Math.PI * 1.75, Complejo.Forma.Polar))
+                        .Within(Complejo.Epsilon));
         }
 
         [Test]
@@ -168,7 +199,16 @@ namespace Complejos.Tests
         {
             Assert.AreEqual(
                 new Complejo(1, Math.PI / 4, Complejo.Forma.Polar),
-                new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2).Convertir(Complejo.Forma.Polar));
+                new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, Complejo.Forma.Binomica)
+                    .Convertir(Complejo.Forma.Polar));
+        }
+
+        [Test]
+        public void testToBinomica()
+        {
+            Assert.AreEqual(
+                new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, Complejo.Forma.Binomica),
+                new Complejo(1, Math.PI / 4, Complejo.Forma.Polar).Convertir(Complejo.Forma.Binomica));
         }
     }
 }
