@@ -22,9 +22,9 @@ namespace Complejos
             Complejo.Forma forma;
             
             m = Regex.Match(texto,
-                @"\(\s*(-?[\d]+.?[\d]*)\s*,\s*(-?[\d]+.?[\d]*)\s*\)" +    // (a,b)
+                @"\(\s*(-?[\d]+\.?[\d]*)\s*,\s*(-?[\d]+\.?[\d]*)\s*\)" +    // (a,b)
                 @"\s*(\S)\s*" +                                           // <operador>
-                @"\(\s*(-?[\d]+.?[\d]*)\s*,\s*(-?[\d]+.?[\d]*)\s*\)",     // (a,b)
+                @"\(\s*(-?[\d]+\.?[\d]*)\s*,\s*(-?[\d]+\.?[\d]*)\s*\)",     // (a,b)
                 RegexOptions.Compiled);
 
             if (m.Success)
@@ -32,9 +32,9 @@ namespace Complejos
             else
             {
                 m = Regex.Match(texto,
-                    @"\[\s*(-?[\d]+.?[\d]*)\s*;\s*(-?[\d]+.?[\d]*)\s*\]" +    // [a;b]
+                    @"\[\s*(-?[\d]+\.?[\d]*)\s*;\s*(-?[\d]+\.?[\d]*)\s*\]" +    // [a;b]
                     @"\s*(\S)\s*" +                                           // <operador>
-                    @"\[\s*(-?[\d]+.?[\d]*)\s*;\s*(-?[\d]+.?[\d]*)\s*\]",     // [a;b]
+                    @"\[\s*(-?[\d]+\.?[\d]*)\s*;\s*(-?[\d]+\.?[\d]*)\s*\]",     // [a;b]
                     RegexOptions.Compiled);
 
                 if (m.Success)

@@ -143,18 +143,50 @@ namespace Complejos
 
         public static Complejo operator +(Complejo izq, Complejo der)
         {
+            bool polar = false;
+
+            if (izq.forma != der.forma)
+            {
+                izq = izq.Convertir(Forma.Polar);
+                der = der.Convertir(Forma.Polar);
+            }
+
+            if (izq.forma == Forma.Polar) 
+                polar = true;
+
             izq = izq.Convertir(Forma.Binomica);
             der = der.Convertir(Forma.Binomica);
 
-            return new Complejo(izq.a + der.a, izq.b + der.b, Forma.Binomica);
+            var suma = new Complejo(izq.a + der.a, izq.b + der.b, Forma.Binomica);
+
+            if (polar == true)
+                return suma.Convertir(Forma.Polar);
+
+            return suma;
         }
 
         public static Complejo operator -(Complejo izq, Complejo der)
         {
+            bool polar = false;
+
+            if (izq.forma != der.forma)
+            {
+                izq = izq.Convertir(Forma.Polar);
+                der = der.Convertir(Forma.Polar);
+            }
+
+            if (izq.forma == Forma.Polar)
+                polar = true;
+
             izq = izq.Convertir(Forma.Binomica);
             der = der.Convertir(Forma.Binomica);
 
-            return new Complejo(izq.a - der.a, izq.b - der.b, Forma.Binomica);
+            var resta = new Complejo(izq.a - der.a, izq.b - der.b, Forma.Binomica);
+
+            if (polar == true)
+                return resta.Convertir(Forma.Polar);
+
+            return resta;
         }
 
         public static Complejo operator *(Complejo izq, Complejo der)
