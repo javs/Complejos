@@ -210,5 +210,55 @@ namespace Complejos.Tests
                 new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, Complejo.Forma.Binomica),
                 new Complejo(1, Math.PI / 4, Complejo.Forma.Polar).Convertir(Complejo.Forma.Binomica));
         }
+
+        [Test]
+        public void testPotencia()
+        {
+            Assert.AreEqual(
+                new Complejo(2, Math.PI, Complejo.Forma.Polar).Potencia(2),
+                new Complejo(4, 2 * Math.PI, Complejo.Forma.Polar));
+
+            Assert.AreEqual(
+                new Complejo(1, 2, Complejo.Forma.Binomica).Potencia(2),
+                new Complejo(-3, 4, Complejo.Forma.Binomica));
+
+            Assert.AreEqual(
+                new Complejo(1, 2, Complejo.Forma.Binomica).Potencia(0),
+                new Complejo(1, 0, Complejo.Forma.Binomica));
+
+            Assert.AreEqual(
+                new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, Complejo.Forma.Binomica).Potencia(2),
+                new Complejo(1, Math.PI / 4, Complejo.Forma.Polar).Potencia(2));
+        }
+
+        [Test]
+        public void testRaiz()
+        {
+            List<Complejo> raices = new List<Complejo>();
+
+            // raices de el complejo ( 3 , 4 )
+            raices.Add(new Complejo(2,1,Complejo.Forma.Binomica));
+            raices.Add(new Complejo(-2,-1,Complejo.Forma.Binomica));
+
+            Assert.AreEqual(
+                raices,
+                new Complejo(3, 4, Complejo.Forma.Binomica).Raiz(2));
+
+            raices.Clear();
+
+            // raices de el complejo [ 8 ; 3/2 pi ]
+            raices.Add(new Complejo(2, Math.PI / 2, Complejo.Forma.Polar));
+            raices.Add(new Complejo(2, Math.PI * 7 / 6, Complejo.Forma.Polar));
+            raices.Add(new Complejo(2, Math.PI * 11 / 6, Complejo.Forma.Polar));
+
+            Assert.AreEqual(
+                raices,
+                new Complejo(8, Math.PI * 3 / 2, Complejo.Forma.Polar).Raiz(3));
+
+            Assert.AreEqual(
+                new Complejo(0,-8,Complejo.Forma.Binomica).Raiz(3),
+                new Complejo(8, Math.PI * 3 / 2, Complejo.Forma.Polar).Raiz(3));
+
+        }
     }
 }

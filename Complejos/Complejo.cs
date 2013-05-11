@@ -145,13 +145,7 @@ namespace Complejos
         {
             bool polar = false;
 
-            if (izq.forma != der.forma)
-            {
-                izq = izq.Convertir(Forma.Polar);
-                der = der.Convertir(Forma.Polar);
-            }
-
-            if (izq.forma == Forma.Polar) 
+            if (izq.forma == Forma.Polar && der.forma == Forma.Polar)
                 polar = true;
 
             izq = izq.Convertir(Forma.Binomica);
@@ -169,13 +163,7 @@ namespace Complejos
         {
             bool polar = false;
 
-            if (izq.forma != der.forma)
-            {
-                izq = izq.Convertir(Forma.Polar);
-                der = der.Convertir(Forma.Polar);
-            }
-
-            if (izq.forma == Forma.Polar)
+            if (izq.forma == Forma.Polar && der.forma == Forma.Polar)
                 polar = true;
 
             izq = izq.Convertir(Forma.Binomica);
@@ -226,6 +214,48 @@ namespace Complejos
             }
             else
                 return new Complejo(izq.a / der.a, izq.b - der.b, Forma.Polar);
+        }
+
+        public Complejo Potencia(int n)
+        {
+            bool binomica = false;
+
+            if (this.forma == Forma.Binomica)
+                binomica = true;
+                
+            var aux = this.Convertir(Forma.Polar);
+
+            var potencia = new Complejo(Math.Pow(aux.a, n), n * aux.b, Forma.Polar);
+
+            if ( binomica == true )
+                return potencia.Convertir(Forma.Binomica);
+
+            return potencia;
+        }
+
+        public List<Complejo> Raiz(int n)
+        {
+
+            var raices = new List<Complejo>();
+
+            bool binomica = false;
+
+            if (this.forma == Forma.Binomica)
+                binomica = true;
+
+            var aux = this.Convertir(Forma.Polar);
+
+            int i;
+            for (i = 0; i < n; i++)
+            {
+                var raiz = new Complejo(Math.Pow(aux.a, (double)1 / n), (aux.b + 2 * i * Math.PI) / n, Forma.Polar);
+                if (binomica == true)
+                    raiz = raiz.Convertir(Forma.Binomica);
+                raices.Add(raiz);
+            }
+
+            return raices;
+
         }
 
         public Complejo Conjugado()
