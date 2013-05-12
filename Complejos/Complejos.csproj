@@ -56,8 +56,10 @@
     <Compile Include="Central.Designer.cs">
       <DependentUpon>Central.cs</DependentUpon>
     </Compile>
-    <Compile Include="Complejo.cs" />
-    <Compile Include="Interprete.cs" />
+    <Compile Include="Interprete\Suma.cs" />
+    <Compile Include="TP\Complejo.cs" />
+    <Compile Include="Interprete\IExpresion.cs" />
+    <Compile Include="Interprete\Interprete.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Central.resx">

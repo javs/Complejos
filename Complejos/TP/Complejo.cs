@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Complejos
 {
@@ -215,6 +212,63 @@ namespace Complejos
                 return Equals(this.a, c.a) && Equals(this.b, c.b);
             else // Si sus formas son distintas, convertir a binomico ya que es mas barato
                 return this.Convertir(Forma.Binomica).Equals(c.Convertir(Forma.Binomica));
+        }
+
+        public bool Parse(string expresion,
+            out IExpresion resultado, out int extraido)
+        {
+            const string DECIMAL_NUMBER = @"\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*";
+
+            Match m;
+
+            // Binomico (a;b)
+            m = Regex.Match(
+                expresion,
+                @"^\(" + DECIMAL_NUMBER + ";" + DECIMAL_NUMBER + @"\)",
+                RegexOptions.Compiled);
+
+            if (m.Success)
+            {
+                resultado = new Complejo(
+                    double.Parse(m.Groups[1].Value),
+                    double.Parse(m.Groups[2].Value),
+                    Forma.Binomica);
+
+                extraido = m.Length;
+
+                return true;
+            }
+
+            // Polar [a;b]
+            m = Regex.Match(
+                expresion,
+                @"^\[" + DECIMAL_NUMBER + ";" + DECIMAL_NUMBER + @"(pi)?\]",
+                RegexOptions.Compiled);
+
+            if (m.Success)
+            {
+                var o = double.Parse(m.Groups[2].Value);
+
+                if (m.Groups[3].Success) // tiene pi
+                    o *= Math.PI;
+
+                resultado = new Complejo(
+                    double.Parse(m.Groups[1].Value),
+                    o,
+                    Forma.Polar);
+
+                extraido =  m.Length;
+
+                return true;
+            }
+
+            // Binomico a + bj
+            // \todo - parseo manual ?
+
+            resultado = null;
+            extraido = 0;
+
+            return false;
         }
     }
 }
