@@ -214,10 +214,10 @@ namespace Complejos
                 return this.Convertir(Forma.Binomica).Equals(c.Convertir(Forma.Binomica));
         }
 
-        public bool Parse(string expresion,
-            out IExpresion resultado, out int extraido)
+        public static bool Parsear(string expresion,
+            out Complejo resultado, out int extraido)
         {
-            const string DECIMAL_NUMBER = @"\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*";
+            const string DECIMAL_NUMBER = @"(?:\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*)";
 
             Match m;
 
@@ -242,24 +242,32 @@ namespace Complejos
             // Polar [a;b]
             m = Regex.Match(
                 expresion,
-                @"^\[" + DECIMAL_NUMBER + ";" + DECIMAL_NUMBER + @"(pi)?\]",
+                @"^\[" + DECIMAL_NUMBER + ";" + DECIMAL_NUMBER + @"?(pi)?\]",
                 RegexOptions.Compiled);
 
             if (m.Success)
             {
-                var o = double.Parse(m.Groups[2].Value);
+                var tiene_argumento = m.Groups[2].Success;
+                var tiene_pi = m.Groups[3].Success;
 
-                if (m.Groups[3].Success) // tiene pi
-                    o *= Math.PI;
+                if (tiene_argumento || tiene_pi)
+                {
+                    var o = tiene_argumento
+                        ? double.Parse(m.Groups[2].Value)
+                        : 1.0;
+                    
+                    if (tiene_pi)
+                        o *= Math.PI;
 
-                resultado = new Complejo(
-                    double.Parse(m.Groups[1].Value),
-                    o,
-                    Forma.Polar);
+                    resultado = new Complejo(
+                        double.Parse(m.Groups[1].Value),
+                        o,
+                        Forma.Polar);
 
-                extraido =  m.Length;
+                    extraido = m.Length;
 
-                return true;
+                    return true;
+                }
             }
 
             // Binomico a + bj

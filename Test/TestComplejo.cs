@@ -209,5 +209,80 @@ namespace Complejos.Tests
                 new Complejo(Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, Complejo.Forma.Binomica),
                 new Complejo(1, Math.PI / 4, Complejo.Forma.Polar).Convertir(Complejo.Forma.Binomica));
         }
+
+        [Test]
+        public void testParsear()
+        {
+
+            int extraido;
+            Complejo resultado;
+
+            // Forma binomica
+            Assert.IsTrue(Complejo.Parsear("(1;1)", out resultado, out extraido));
+
+            Assert.AreEqual(5, extraido);
+
+            Assert.AreEqual(
+                new Complejo(1, 1, Complejo.Forma.Binomica),
+                resultado);
+
+            // Forma binomica con signos
+            Assert.IsTrue(Complejo.Parsear("(-1;3)", out resultado, out extraido));
+
+            Assert.AreEqual(6, extraido);
+
+            Assert.AreEqual(
+                new Complejo(-1, 3, Complejo.Forma.Binomica),
+                resultado);
+
+
+            // Forma polar con sobras
+            Assert.IsTrue(Complejo.Parsear("[1;1]asd", out resultado, out extraido));
+
+            Assert.AreEqual(5, extraido);
+
+            Assert.AreEqual(
+                new Complejo(1, 1, Complejo.Forma.Polar),
+                resultado);
+
+
+            // Forma polar con pi y sobras
+            Assert.IsTrue(Complejo.Parsear("[1;1pi][3;2pi]", out resultado, out extraido));
+
+            Assert.AreEqual(7, extraido);
+
+            Assert.AreEqual(
+                new Complejo(1, 1 * Math.PI, Complejo.Forma.Polar),
+                resultado);
+
+            // Forma polar con pi, signos y decimales
+            Assert.IsTrue(Complejo.Parsear("[-1.567;+5pi]", out resultado, out extraido));
+
+            Assert.AreEqual(13, extraido);
+
+            Assert.AreEqual(
+                new Complejo(-1.567, 5 * Math.PI, Complejo.Forma.Polar),
+                resultado);
+
+            // Forma polar con pi, signos y decimales
+            Assert.IsTrue(Complejo.Parsear("[5;pi]", out resultado, out extraido));
+
+            Assert.AreEqual(6, extraido);
+
+            Assert.AreEqual(
+                new Complejo(5, Math.PI, Complejo.Forma.Polar),
+                resultado);
+
+            // Formas incorrecta
+            Assert.IsFalse(Complejo.Parsear("[1-1]", out resultado, out extraido));
+            Assert.IsFalse(Complejo.Parsear("(1;1]", out resultado, out extraido));
+            Assert.IsFalse(Complejo.Parsear("1;1]", out resultado, out extraido));
+            Assert.IsFalse(Complejo.Parsear("a(1;1)", out resultado, out extraido));
+            Assert.IsFalse(Complejo.Parsear(" (1;1)", out resultado, out extraido));
+            Assert.IsFalse(Complejo.Parsear("[1.-3;1]", out resultado, out extraido));
+            Assert.IsFalse(Complejo.Parsear("(-;1)", out resultado, out extraido));
+            Assert.IsFalse(Complejo.Parsear("(1;)", out resultado, out extraido));
+            Assert.IsFalse(Complejo.Parsear("[;1]", out resultado, out extraido));
+        }
     }
 }

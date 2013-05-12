@@ -11,7 +11,7 @@ namespace Complejos
         }
     }
 
-    public class Interprete
+    public class InterpreteBasico
     {
         public string Operacion(string texto)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Complejos.Interprete
 {
-    class Suma : IExpresion
+    /*class Suma : IExpresion
     {
         public readonly IExpresion izq;
         public readonly IExpresion der;
@@ -21,5 +21,5 @@ namespace Complejos.Interprete
         {
             return izq + der;
         }
-    }
+    }*/
 }

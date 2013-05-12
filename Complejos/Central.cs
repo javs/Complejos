@@ -5,7 +5,7 @@ namespace Complejos
 {
     public partial class Central : Form
     {
-        private Interprete interprete = new Interprete();
+        private InterpreteBasico interprete = new InterpreteBasico();
 
         public Central()
         {
