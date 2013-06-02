@@ -260,5 +260,71 @@ namespace Complejos.Tests
                 new Complejo(8, Math.PI * 3 / 2, Complejo.Forma.Polar).Raiz(3));
 
         }
+
+        [Test]
+        public void testRaizPrimitiva()
+        {
+            List<Complejo> raices_primitivas = new List<Complejo>();
+
+            Complejo unidad = binomico[2];
+
+            // raices primitivas para n = 4
+            raices_primitivas.Add(null);
+            raices_primitivas.Add(new Complejo(0, 1, Complejo.Forma.Binomica));
+            raices_primitivas.Add(null);
+            raices_primitivas.Add(new Complejo(0, -1, Complejo.Forma.Binomica));
+
+            Assert.AreEqual(
+                raices_primitivas,
+                unidad.Primitivas(4));
+
+            raices_primitivas.Clear();
+
+            // raices primitivas para n = 8
+            raices_primitivas.Add(null);
+            raices_primitivas.Add(new Complejo(1, Math.PI * 1 / 4, Complejo.Forma.Polar));
+            raices_primitivas.Add(null);
+            raices_primitivas.Add(new Complejo(1, Math.PI * 3 / 4, Complejo.Forma.Polar));
+            raices_primitivas.Add(null);
+            raices_primitivas.Add(new Complejo(1, Math.PI * 5 / 4, Complejo.Forma.Polar));
+            raices_primitivas.Add(null);
+            raices_primitivas.Add(new Complejo(1, Math.PI * 7 / 4, Complejo.Forma.Polar));
+
+            Assert.AreEqual(
+                raices_primitivas,
+                unidad.Convertir(Complejo.Forma.Polar).Primitivas(8));
+
+            raices_primitivas.Clear();
+
+            raices_primitivas = unidad.Raiz(30);
+
+            // saco todas las raices que no son primitivas
+            raices_primitivas[0]  = null;
+            raices_primitivas[2]  = null;
+            raices_primitivas[3]  = null;
+            raices_primitivas[4]  = null;
+            raices_primitivas[5]  = null;
+            raices_primitivas[6]  = null;
+            raices_primitivas[8]  = null;
+            raices_primitivas[9]  = null;
+            raices_primitivas[10] = null;
+            raices_primitivas[12] = null;
+            raices_primitivas[14] = null;
+            raices_primitivas[15] = null;
+            raices_primitivas[16] = null;
+            raices_primitivas[18] = null;
+            raices_primitivas[20] = null;
+            raices_primitivas[21] = null;
+            raices_primitivas[22] = null;
+            raices_primitivas[24] = null;
+            raices_primitivas[25] = null;
+            raices_primitivas[26] = null;
+            raices_primitivas[27] = null;
+            raices_primitivas[28] = null;
+
+            Assert.AreEqual(
+                raices_primitivas,
+                unidad.Primitivas(30));
+        }
     }
 }

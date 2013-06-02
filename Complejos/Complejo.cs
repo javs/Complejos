@@ -258,6 +258,64 @@ namespace Complejos
 
         }
 
+        // devuelve una lista con "n" elementos que tiene el valor de la raiz primitiva
+        // en caso de que w(n) sea raiz primitiva y valor "null" para el caso contrario
+        public List<Complejo> Primitivas(int n)
+        {
+
+            var raices = new List<Complejo>();
+
+            var primitivas = new List<Complejo>();
+
+            if ( ! this.Equals(new Complejo(1,0,Forma.Binomica) ) )
+            {
+                throw new Exception("No se pueden calcular las raices primitivas a un complejo que no sea la unidad (1,0)");
+            }
+
+            raices = this.Raiz(n);
+
+            // w(0) nunca es raiz primitiva
+            primitivas.Add(null);
+            // w(1) siempre es raiz primitiva
+            primitivas.Add(raices[1]);
+
+            // empieza la iteracion desde w(2)
+            int i;
+            for (i = 2; i < raices.Count(); i++)
+            {
+                Complejo raiz = null;
+
+                if ( MCD(i,n) == 1 )
+                    raiz = raices[i];
+
+                primitivas.Add(raiz);
+            }
+
+            return primitivas;
+        }
+
+        // algoritmo de Euclides para MCD
+        private static int MCD(int a, int b)
+        {
+
+            if (a > b)
+            {
+                int temp = b;
+                b = a;
+                a = temp;
+            }
+
+            // iterar hasta que el resto sea cero
+            while (b != 0)
+            {
+                int resto = a % b;
+                a = b;
+                b = resto;
+            }
+
+            return a;
+        }
+
         public Complejo Conjugado()
         {
             return new Complejo(a,-b, forma);
