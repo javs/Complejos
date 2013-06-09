@@ -5,8 +5,6 @@ namespace Complejos
 {
     public partial class Central : Form
     {
-        private InterpreteBasico interprete = new InterpreteBasico();
-
         public Central()
         {
             InitializeComponent();
@@ -18,7 +16,7 @@ namespace Complejos
             try
             {
                 lEstado.Text = "";
-                Resultado.Text = interprete.Operacion(Operacion.Text);
+                //Resultado.Text = interprete.Operacion(Operacion.Text);
             }
             catch (Exception ex)
             {

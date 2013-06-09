@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Complejos
 {
-    public class Complejo
+    public class Complejo : IExpresion
     {
         public const double PI_2 = Math.PI * 2;
         public const double Epsilon = 1E-13;
@@ -124,7 +124,7 @@ namespace Complejos
 
                 double b_abs = Math.Abs(b);
 
-                // no mostrar los 1 para j
+                // no mostrar 1 para j
                 if (NotEquals(b_abs, 1.0))
                     segunda += Math.Round(b_abs, precision);
 
@@ -214,17 +214,26 @@ namespace Complejos
                 return this.Convertir(Forma.Binomica).Equals(c.Convertir(Forma.Binomica));
         }
 
+        public override int GetHashCode()
+        {
+            int hash = 23;
+            hash = hash * 31 + a.GetHashCode();
+            hash = hash * 31 + b.GetHashCode();
+
+            return hash;
+        }
+
         public static bool Parsear(string expresion,
             out Complejo resultado, out int extraido)
         {
-            const string DECIMAL_NUMBER = @"(?:\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*)";
+            const string NUMERO_DECIMAL = @"(?:\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*)";
 
             Match m;
 
             // Binomico (a;b)
             m = Regex.Match(
                 expresion,
-                @"^\(" + DECIMAL_NUMBER + ";" + DECIMAL_NUMBER + @"\)",
+                @"^\(" + NUMERO_DECIMAL + ";" + NUMERO_DECIMAL + @"\)",
                 RegexOptions.Compiled);
 
             if (m.Success)
@@ -242,7 +251,7 @@ namespace Complejos
             // Polar [a;b]
             m = Regex.Match(
                 expresion,
-                @"^\[" + DECIMAL_NUMBER + ";" + DECIMAL_NUMBER + @"?(pi)?\]",
+                @"^\[" + NUMERO_DECIMAL + ";" + NUMERO_DECIMAL + @"?(pi)?\]",
                 RegexOptions.Compiled);
 
             if (m.Success)
@@ -277,6 +286,11 @@ namespace Complejos
             extraido = 0;
 
             return false;
+        }
+
+        public IExpresion Interpretar()
+        {
+            return this;
         }
     }
 }

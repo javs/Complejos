@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Complejos.Interprete
+namespace Complejos
 {
-    /*class Suma : IExpresion
+    class Suma : IExpresion
     {
-        public readonly IExpresion izq;
-        public readonly IExpresion der;
+        private readonly dynamic izq;
+        private readonly dynamic der;
 
-        Suma(IExpresion izq, IExpresion der)
+        public Suma(IExpresion izq, IExpresion der)
         {
             this.izq = izq;
-            this.der= der;
+            this.der = der;
         }
 
-        IExpresion Interpretar()
+        public IExpresion Interpretar()
         {
-            return izq + der;
+            return izq.Interpretar() + der.Interpretar();
         }
-    }*/
+    }
 }

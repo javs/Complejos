@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Complejos
 {
-    interface IExpresion
+    public interface IExpresion
     {
         IExpresion Interpretar();
     }
