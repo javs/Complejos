@@ -18,6 +18,7 @@ namespace Complejos
         {
             InitializeComponent();
             lEstado.Text = "";
+            basicoOp.SelectedIndex = 0;
         }
 
         private void Igual_Click(object sender, EventArgs e)
@@ -25,7 +26,24 @@ namespace Complejos
             try
             {
                 lEstado.Text = "";
-                Resultado.Text = interprete.Operacion(Operacion.Text);
+
+                switch (tabs.SelectedIndex)
+                {
+                    case 0:
+                        Resultado.Text =
+                            interprete.OperacionBasica(basicoOpA.Text, basicoOp.Text, basicoOpB.Text);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                }
             }
             catch (Exception ex)
             {

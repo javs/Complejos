@@ -326,5 +326,46 @@ namespace Complejos.Tests
                 raices_primitivas,
                 unidad.Primitivas(30));
         }
+
+        [Test]
+        public void testParsear()
+        {
+            // Forma binomica
+            Assert.AreEqual(
+                Complejo.Interpretar("(1;1)"),
+                new Complejo(1, 1, Complejo.Forma.Binomica));
+
+            // Forma binomica con signos
+            Assert.AreEqual(
+                Complejo.Interpretar("(-1;3)"),
+                new Complejo(-1, 3, Complejo.Forma.Binomica));
+            
+            // Forma polar con sobras
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("[1;1]asd"));
+
+            // Forma polar con pi y sobras
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("[1;1pi][3;2pi]"));
+
+            // Forma polar con pi, signos y decimales
+            Assert.AreEqual(
+                Complejo.Interpretar("[-1.567;+5pi]"),
+                new Complejo(-1.567, 5 * Math.PI, Complejo.Forma.Polar));
+
+            // Forma polar con pi, signos y decimales
+            Assert.AreEqual(
+                Complejo.Interpretar("[5;pi]"),
+                new Complejo(5, Math.PI, Complejo.Forma.Polar));
+
+            // Formas incorrectas
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("[1-1]"));
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("(1;1]"));
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("1;1]"));
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("a(1;1)"));
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar(" (1;1)"));
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("[1.-3;1]"));
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("(-;1)"));
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("(1;)"));
+            Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("[;1]"));
+        }
     }
 }

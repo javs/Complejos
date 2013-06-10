@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Complejos
 {
@@ -127,7 +125,7 @@ namespace Complejos
 
                 double b_abs = Math.Abs(b);
 
-                // no mostrar los 1 para j
+                // no mostrar 1 para j
                 if (NotEquals(b_abs, 1.0))
                     segunda += Math.Round(b_abs, precision);
 
@@ -281,7 +279,7 @@ namespace Complejos
 
             // empieza la iteracion desde w(2)
             int i;
-            for (i = 2; i < raices.Count(); i++)
+            for (i = 2; i < raices.Count; i++)
             {
                 Complejo raiz = null;
 
@@ -335,6 +333,60 @@ namespace Complejos
                 return Equals(this.a, c.a) && Equals(this.b, c.b);
             else // Si sus formas son distintas, convertir a binomico ya que es mas barato
                 return this.Convertir(Forma.Binomica).Equals(c.Convertir(Forma.Binomica));
+        }
+
+        public static Complejo Interpretar(string expresion)
+        {
+            const string NUMERO_DECIMAL = @"(?:\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*)";
+
+            Match m;
+
+            // Binomico (a;b)
+            m = Regex.Match(
+                expresion,
+                @"^\(" + NUMERO_DECIMAL + ";" + NUMERO_DECIMAL + @"\)$",
+                RegexOptions.Compiled);
+
+            if (m.Success)
+            {
+                return new Complejo(
+                    double.Parse(m.Groups[1].Value),
+                    double.Parse(m.Groups[2].Value),
+                    Forma.Binomica);
+            }
+
+            // Polar [a;b]
+            m = Regex.Match(
+                expresion,
+                @"^\[" + NUMERO_DECIMAL + ";" + NUMERO_DECIMAL + @"?(pi)?\]$",
+                RegexOptions.Compiled);
+
+            if (m.Success)
+            {
+                var tiene_argumento = m.Groups[2].Success;
+                var tiene_pi = m.Groups[3].Success;
+
+                if (tiene_argumento || tiene_pi)
+                {
+                    var o = tiene_argumento
+                        ? double.Parse(m.Groups[2].Value)
+                        : 1.0;
+                    
+                    if (tiene_pi)
+                        o *= Math.PI;
+
+                    return new Complejo(
+                        double.Parse(m.Groups[1].Value),
+                        o,
+                        Forma.Polar);
+                }
+            }
+
+            // Binomico a + bj
+            // \todo - parseo manual ?
+
+            throw new ErrorDeSintaxisException(
+                "Se espera un numero de la forma [a;b] o (a;b) en lugar de " + expresion);
         }
     }
 }
