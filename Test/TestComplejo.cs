@@ -373,5 +373,50 @@ namespace Complejos.Tests
             Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("(1;)"));
             Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("[;1]"));
         }
+
+        [Test]
+        public void testFuncionesSinusoidales()
+        {
+            FuncionSinusoidal f1;
+            FuncionSinusoidal f2;
+            FuncionSinusoidal ft;
+
+            f1 = new FuncionSinusoidal(5, FuncionSinusoidal.Angulo.Coseno, 2, -Math.PI / 3);
+            f2 = new FuncionSinusoidal(8, FuncionSinusoidal.Angulo.Coseno, 2, Math.PI / 6);
+            ft = new FuncionSinusoidal(9.434, FuncionSinusoidal.Angulo.Coseno, 2, -0.035);
+
+            Assert.AreEqual(
+                Math.Round((f1 + f2).amplitud, 3),
+                Math.Round(ft.amplitud, 3));
+
+            Assert.AreEqual(
+                Math.Round((f1 + f2).fase, 3),
+                Math.Round(ft.fase, 3));
+
+            f1 = new FuncionSinusoidal(4, FuncionSinusoidal.Angulo.Coseno, 3, 0);
+            f2 = new FuncionSinusoidal(6, FuncionSinusoidal.Angulo.Seno, 3, 0);
+            ft = new FuncionSinusoidal(7.21, FuncionSinusoidal.Angulo.Coseno, 3, -0.98);
+
+            Assert.AreEqual(
+                Math.Round((f1 + f2).amplitud, 2),
+                Math.Round(ft.amplitud, 2));
+
+            Assert.AreEqual(
+                Math.Round((f1 + f2).fase, 2),
+                Math.Round(ft.fase, 2));
+
+            f1 = new FuncionSinusoidal(1, FuncionSinusoidal.Angulo.Seno, 5, -Math.PI / 2);
+            f2 = new FuncionSinusoidal(1, FuncionSinusoidal.Angulo.Seno, 5, +Math.PI / 3);
+            ft = new FuncionSinusoidal(0.517, FuncionSinusoidal.Angulo.Seno, 2, -Math.PI / 12);
+
+            Assert.AreEqual(
+                Math.Round((f1 + f2).amplitud, 2),
+                Math.Round(ft.amplitud, 2));
+
+            Assert.AreEqual(
+                Math.Round((f1 + f2).fase, 2),
+                Math.Round(ft.fase, 2));
+
+        }
     }
 }

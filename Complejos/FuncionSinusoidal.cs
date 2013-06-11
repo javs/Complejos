@@ -54,10 +54,10 @@ namespace Complejos
                 angulo = Angulo.Seno;
 
             if (izq.angulo == Angulo.Seno)
-                fase_izq = fase_izq + Math.PI / 2;
+                fase_izq = fase_izq - Math.PI / 2;
 
             if (der.angulo == Angulo.Seno)
-                fase_der = fase_der + Math.PI / 2;
+                fase_der = fase_der - Math.PI / 2;
 
             var amplitud_total = Math.Sqrt(
                 Math.Pow(izq.amplitud, 2) +
