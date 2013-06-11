@@ -57,10 +57,16 @@
             this.fasoresOpB = new System.Windows.Forms.TextBox();
             this.fasoresOpA = new System.Windows.Forms.TextBox();
             this.tEstado = new System.Windows.Forms.ToolTip(this.components);
+            this.primitivaResultado = new System.Windows.Forms.TextBox();
+            this.primitivaIgual = new System.Windows.Forms.Button();
+            this.primitivaSeleccionar = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.primitivaGrado = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -321,6 +327,11 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.primitivaResultado);
+            this.tabPage4.Controls.Add(this.primitivaIgual);
+            this.tabPage4.Controls.Add(this.primitivaSeleccionar);
+            this.tabPage4.Controls.Add(this.label3);
+            this.tabPage4.Controls.Add(this.primitivaGrado);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(552, 50);
@@ -400,6 +411,64 @@
             this.fasoresOpA.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
             this.fasoresOpA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
             // 
+            // primitivaResultado
+            // 
+            this.primitivaResultado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.primitivaResultado.Font = new System.Drawing.Font("Cambria", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.primitivaResultado.Location = new System.Drawing.Point(400, 6);
+            this.primitivaResultado.Name = "primitivaResultado";
+            this.primitivaResultado.ReadOnly = true;
+            this.primitivaResultado.Size = new System.Drawing.Size(146, 39);
+            this.primitivaResultado.TabIndex = 5;
+            this.primitivaResultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.primitivaResultado.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
+            this.primitivaResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
+            // 
+            // primitivaIgual
+            // 
+            this.primitivaIgual.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.primitivaIgual.Font = new System.Drawing.Font("Cambria", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.primitivaIgual.Location = new System.Drawing.Point(310, 6);
+            this.primitivaIgual.Name = "primitivaIgual";
+            this.primitivaIgual.Size = new System.Drawing.Size(39, 39);
+            this.primitivaIgual.TabIndex = 3;
+            this.primitivaIgual.Text = "=";
+            this.primitivaIgual.UseVisualStyleBackColor = true;
+            this.primitivaIgual.Click += new System.EventHandler(this.Igual_Click);
+            // 
+            // primitivaSeleccionar
+            // 
+            this.primitivaSeleccionar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.primitivaSeleccionar.Font = new System.Drawing.Font("Cambria", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.primitivaSeleccionar.FormattingEnabled = true;
+            this.primitivaSeleccionar.Location = new System.Drawing.Point(355, 5);
+            this.primitivaSeleccionar.Name = "primitivaSeleccionar";
+            this.primitivaSeleccionar.Size = new System.Drawing.Size(39, 40);
+            this.primitivaSeleccionar.TabIndex = 4;
+            this.primitivaSeleccionar.SelectedIndexChanged += new System.EventHandler(this.primitivaSeleccionar_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Cambria", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(56, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 32);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "√1";
+            // 
+            // primitivaGrado
+            // 
+            this.primitivaGrado.Font = new System.Drawing.Font("Cambria", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.primitivaGrado.Location = new System.Drawing.Point(6, 5);
+            this.primitivaGrado.Name = "primitivaGrado";
+            this.primitivaGrado.Size = new System.Drawing.Size(44, 26);
+            this.primitivaGrado.TabIndex = 2;
+            this.primitivaGrado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.primitivaGrado.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
+            this.primitivaGrado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
+            // 
             // Central
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -419,6 +488,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
@@ -455,6 +526,11 @@
         private System.Windows.Forms.TextBox fasoresResultado;
         private System.Windows.Forms.Button fasoresIgual;
         private System.Windows.Forms.ToolTip tEstado;
+        private System.Windows.Forms.TextBox primitivaResultado;
+        private System.Windows.Forms.Button primitivaIgual;
+        private System.Windows.Forms.ComboBox primitivaSeleccionar;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox primitivaGrado;
 
     }
 }

@@ -14,6 +14,7 @@ namespace Complejos
     {
         private Interprete interprete = new Interprete();
         private List<Complejo> resultados_raiz;
+        private List<Complejo> resultados_raiz_primitiva;
 
         public Central()
         {
@@ -33,6 +34,7 @@ namespace Complejos
                     case 0:
                         basicoResultado.Text =
                             interprete.OperacionBasica(basicoOpA.Text, basicoOp.Text, basicoOpB.Text).ToString();
+
                         break;
                     case 1:
                         resultados_raiz = interprete.OperacionRaiz(raizOp.Text, raizGrado.Text);
@@ -49,12 +51,24 @@ namespace Complejos
                     case 2:
                         potenciaResultado.Text =
                             interprete.OperacionPotencia(potenciaOp.Text, potenciaGrado.Text).ToString();
+
                         break;
                     case 3:
+                        resultados_raiz_primitiva = interprete.OperacionRaizPrimitiva(primitivaGrado.Text);
+
+                        primitivaSeleccionar.Items.Clear();
+
+                        for (int i = 0; i < resultados_raiz_primitiva.Count; ++i)
+                            primitivaSeleccionar.Items.Add(i + 1);
+
+                        if (resultados_raiz_primitiva.Count > 0)
+                            primitivaSeleccionar.SelectedIndex = 0;
+
                         break;
                     case 4:
                         fasoresResultado.Text =
                             interprete.OperacionSumaDeFasores(fasoresOpA.Text, fasoresOpB.Text).ToString();
+
                         break;
                 }
             }
@@ -95,6 +109,14 @@ namespace Complejos
             Operacion_TextChanged(sender, e);
 
             raizResultado.Text = resultados_raiz[raizSeleccionar.SelectedIndex].ToString();
+        }
+
+        private void primitivaSeleccionar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Operacion_TextChanged(sender, e);
+
+            primitivaResultado.Text =
+                resultados_raiz_primitiva[primitivaSeleccionar.SelectedIndex].ToString();
         }
     }
 }

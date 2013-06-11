@@ -266,9 +266,13 @@ namespace Complejos
 
             var primitivas = new List<Complejo>();
 
-            if ( ! this.Equals(new Complejo(1,0,Forma.Binomica) ) )
+            Complejo unidad = new Complejo(1, 0, Forma.Binomica);
+
+            if (!this.Equals(unidad))
             {
-                throw new Exception("No se pueden calcular las raices primitivas a un complejo que no sea la unidad (1,0)");
+                throw new Exception(
+                    "No se pueden calcular las raices primitivas" +
+                    " a un complejo que no sea la unidad " + unidad.ToString());
             }
 
             raices = this.Raiz(n);
@@ -279,8 +283,7 @@ namespace Complejos
             primitivas.Add(raices[1]);
 
             // empieza la iteracion desde w(2)
-            int i;
-            for (i = 2; i < raices.Count; i++)
+            for (int i = 2; i < raices.Count; i++)
             {
                 Complejo raiz = null;
 

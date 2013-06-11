@@ -71,5 +71,23 @@ namespace Complejos
 
             return a + b;
         }
+
+        internal List<Complejo> OperacionRaizPrimitiva(string raiz)
+        {
+            Complejo a = new Complejo(1, 0, Complejo.Forma.Binomica);
+
+            int b;
+
+            try
+            {
+                b = int.Parse(raiz);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Raiz: " + e.Message);
+            }
+
+            return a.Raiz(b);
+        }
     }
 }
