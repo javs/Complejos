@@ -348,13 +348,19 @@ namespace Complejos.Tests
 
             // Forma polar con pi, signos y decimales
             Assert.AreEqual(
-                Complejo.Interpretar("[-1.567;+5pi]"),
+                Complejo.Interpretar("[-1" + s + "567;+5pi]"),
                 new Complejo(-1.567, 5 * Math.PI, Complejo.Forma.Polar));
 
             // Forma polar con pi, signos y decimales
             Assert.AreEqual(
                 Complejo.Interpretar("[5;pi]"),
                 new Complejo(5, Math.PI, Complejo.Forma.Polar));
+
+            // Testear lo opuesto al separador decimal actual
+            if (s == ".")
+                Assert.Throws<FormatException>(() => Complejo.Interpretar("(1,2;3,4)"));
+            else
+                Assert.Throws<FormatException>(() => Complejo.Interpretar("(1.2;3.4)"));
 
             // Formas incorrectas
             Assert.Throws<ErrorDeSintaxisException>(() => Complejo.Interpretar("[1-1]"));

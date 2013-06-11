@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Complejos
@@ -340,6 +341,8 @@ namespace Complejos
             const string NUMERO_DECIMAL = @"(?:\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*)";
 
             Match m;
+            // Evita el default que agrega "AllowThousands"
+            NumberStyles style = NumberStyles.Float;
 
             // Binomico (a;b)
             m = Regex.Match(
@@ -350,8 +353,8 @@ namespace Complejos
             if (m.Success)
             {
                 return new Complejo(
-                    double.Parse(m.Groups[1].Value),
-                    double.Parse(m.Groups[2].Value),
+                    double.Parse(m.Groups[1].Value, style),
+                    double.Parse(m.Groups[2].Value, style),
                     Forma.Binomica);
             }
 
@@ -369,14 +372,14 @@ namespace Complejos
                 if (tiene_argumento || tiene_pi)
                 {
                     var o = tiene_argumento
-                        ? double.Parse(m.Groups[2].Value)
+                        ? double.Parse(m.Groups[2].Value, style)
                         : 1.0;
                     
                     if (tiene_pi)
                         o *= Math.PI;
 
                     return new Complejo(
-                        double.Parse(m.Groups[1].Value),
+                        double.Parse(m.Groups[1].Value, style),
                         o,
                         Forma.Polar);
                 }
@@ -386,7 +389,7 @@ namespace Complejos
             // \todo - parseo manual ?
 
             throw new ErrorDeSintaxisException(
-                "Se espera un numero de la forma [a;b] o (a;b) en lugar de " + expresion);
+                "Se esperan numeros de la forma [a;b] o (a;b)");
         }
     }
 }
