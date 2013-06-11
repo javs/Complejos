@@ -346,11 +346,11 @@
             // 
             this.fasoresResultado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fasoresResultado.Font = new System.Drawing.Font("Cambria", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fasoresResultado.Location = new System.Drawing.Point(400, 6);
+            this.fasoresResultado.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fasoresResultado.Location = new System.Drawing.Point(400, 9);
             this.fasoresResultado.Name = "fasoresResultado";
             this.fasoresResultado.ReadOnly = true;
-            this.fasoresResultado.Size = new System.Drawing.Size(146, 39);
+            this.fasoresResultado.Size = new System.Drawing.Size(146, 30);
             this.fasoresResultado.TabIndex = 5;
             this.fasoresResultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.fasoresResultado.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
@@ -372,7 +372,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Cambria", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(163, 9);
+            this.label2.Location = new System.Drawing.Point(163, 4);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 32);
             this.label2.TabIndex = 7;
@@ -380,10 +380,10 @@
             // 
             // fasoresOpB
             // 
-            this.fasoresOpB.Font = new System.Drawing.Font("Cambria", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fasoresOpB.Location = new System.Drawing.Point(199, 6);
+            this.fasoresOpB.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fasoresOpB.Location = new System.Drawing.Point(199, 9);
             this.fasoresOpB.Name = "fasoresOpB";
-            this.fasoresOpB.Size = new System.Drawing.Size(151, 39);
+            this.fasoresOpB.Size = new System.Drawing.Size(151, 30);
             this.fasoresOpB.TabIndex = 3;
             this.fasoresOpB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.fasoresOpB.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
@@ -391,10 +391,10 @@
             // 
             // fasoresOpA
             // 
-            this.fasoresOpA.Font = new System.Drawing.Font("Cambria", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fasoresOpA.Location = new System.Drawing.Point(6, 6);
+            this.fasoresOpA.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fasoresOpA.Location = new System.Drawing.Point(6, 9);
             this.fasoresOpA.Name = "fasoresOpA";
-            this.fasoresOpA.Size = new System.Drawing.Size(151, 39);
+            this.fasoresOpA.Size = new System.Drawing.Size(151, 30);
             this.fasoresOpA.TabIndex = 2;
             this.fasoresOpA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.fasoresOpA.TextChanged += new System.EventHandler(this.Operacion_TextChanged);

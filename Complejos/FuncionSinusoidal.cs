@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Complejos
@@ -94,6 +96,44 @@ namespace Complejos
                 angulo,
                 Math.Round(this.frecuencia, this.precision),
                 fase);
+        }
+
+        public static FuncionSinusoidal Interpretar(string expresion)
+        {
+            const string NUMERO_DECIMAL = @"(?:\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*)";
+
+            Match m;
+            // Evita el default que agrega "AllowThousands"
+            NumberStyles style = NumberStyles.Float;
+
+            m = Regex.Match(
+                expresion,
+                @"^" + NUMERO_DECIMAL + @"(sin|cos)\s*\(" +
+                NUMERO_DECIMAL + "t" + NUMERO_DECIMAL + @"\)\s*$",
+                RegexOptions.Compiled);
+
+            if (m.Success)
+            {
+                double amplitud = double.Parse(m.Groups[1].Value, style);
+                double frecuencia = double.Parse(m.Groups[3].Value, style);
+                double fase = double.Parse(m.Groups[4].Value, style);
+
+                FuncionSinusoidal.Angulo angulo;
+                string angulo_texto = m.Groups[2].Value;
+
+                if (angulo_texto == "sin")
+                    angulo = Angulo.Seno;
+                else if (angulo_texto == "cos")
+                    angulo = Angulo.Coseno;
+                else
+                    throw new ErrorDeSintaxisException(
+                        "Solo se esperan funciones sin o cos");
+
+                return new FuncionSinusoidal(amplitud, angulo, frecuencia, fase);
+            }
+
+            throw new ErrorDeSintaxisException(
+                "Se espera una funcion de la forma Asen(wt+o) o Acos(wt+o)");
         }
     }
 }

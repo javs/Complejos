@@ -53,8 +53,8 @@ namespace Complejos
                     case 3:
                         break;
                     case 4:
-                        break;
-                    case 5:
+                        fasoresResultado.Text =
+                            interprete.OperacionSumaDeFasores(fasoresOpA.Text, fasoresOpB.Text).ToString();
                         break;
                 }
             }

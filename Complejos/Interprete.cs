@@ -63,5 +63,13 @@ namespace Complejos
 
             return a.Raiz(b);
         }
+
+        public FuncionSinusoidal OperacionSumaDeFasores(string fasorA, string fasorB)
+        {
+            FuncionSinusoidal a = FuncionSinusoidal.Interpretar(fasorA);
+            FuncionSinusoidal b = FuncionSinusoidal.Interpretar(fasorB);
+
+            return a + b;
+        }
     }
 }
