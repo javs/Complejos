@@ -109,14 +109,17 @@ namespace Complejos
             m = Regex.Match(
                 expresion,
                 @"^" + NUMERO_DECIMAL + @"(sin|cos)\s*\(" +
-                NUMERO_DECIMAL + "t" + NUMERO_DECIMAL + @"\)\s*$",
+                NUMERO_DECIMAL + "t" + NUMERO_DECIMAL + @"?\)\s*$",
                 RegexOptions.Compiled);
 
             if (m.Success)
             {
                 double amplitud = double.Parse(m.Groups[1].Value, style);
                 double frecuencia = double.Parse(m.Groups[3].Value, style);
-                double fase = double.Parse(m.Groups[4].Value, style);
+
+                double fase = m.Groups[4].Success
+                    ? double.Parse(m.Groups[4].Value, style)
+                    : 0;
 
                 FuncionSinusoidal.Angulo angulo;
                 string angulo_texto = m.Groups[2].Value;

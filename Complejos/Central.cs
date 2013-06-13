@@ -44,7 +44,7 @@ namespace Complejos
                         for (int i = 0; i < resultados_raiz.Count; ++i)
                             raizSeleccionar.Items.Add(i + 1);
 
-                        if (resultados_raiz.Count > 0)
+                        if (raizSeleccionar.Items.Count > 0)
                             raizSeleccionar.SelectedIndex = 0;
 
                         break;
@@ -59,9 +59,12 @@ namespace Complejos
                         primitivaSeleccionar.Items.Clear();
 
                         for (int i = 0; i < resultados_raiz_primitiva.Count; ++i)
-                            primitivaSeleccionar.Items.Add(i + 1);
+                        {
+                            if (resultados_raiz_primitiva[i] != null)
+                                primitivaSeleccionar.Items.Add(i + 1);
+                        }
 
-                        if (resultados_raiz_primitiva.Count > 0)
+                        if (primitivaSeleccionar.Items.Count > 0)
                             primitivaSeleccionar.SelectedIndex = 0;
 
                         break;
@@ -115,8 +118,10 @@ namespace Complejos
         {
             Operacion_TextChanged(sender, e);
 
+            int valor = int.Parse(primitivaSeleccionar.SelectedItem.ToString()) -1;
+
             primitivaResultado.Text =
-                resultados_raiz_primitiva[primitivaSeleccionar.SelectedIndex].ToString();
+                resultados_raiz_primitiva[valor].ToString();
         }
     }
 }

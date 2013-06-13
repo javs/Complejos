@@ -87,7 +87,7 @@ namespace Complejos
                 throw new Exception("Raiz: " + e.Message);
             }
 
-            return a.Raiz(b);
+            return a.Primitivas(b);
         }
     }
 }

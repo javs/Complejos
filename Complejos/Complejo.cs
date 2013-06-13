@@ -277,8 +277,6 @@ namespace Complejos
 
             raices = this.Raiz(n);
 
-            // w(0) nunca es raiz primitiva
-            primitivas.Add(null);
             // w(1) siempre es raiz primitiva
             primitivas.Add(raices[1]);
 
