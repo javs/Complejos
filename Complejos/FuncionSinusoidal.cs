@@ -100,7 +100,9 @@ namespace Complejos
 
         public static FuncionSinusoidal Interpretar(string expresion)
         {
-            const string NUMERO_DECIMAL = @"(?:\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*)";
+            const string NUMERO_DECIMAL = @"(?:([+-]?[\d]+[\.\,]?[\d]*))";
+
+            expresion = Regex.Replace(expresion, @"\s+", string.Empty);
 
             Match m;
             // Evita el default que agrega "AllowThousands"

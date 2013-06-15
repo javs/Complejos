@@ -50,6 +50,11 @@
             this.potenciaGrado = new System.Windows.Forms.TextBox();
             this.potenciaOp = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.primitivaResultado = new System.Windows.Forms.TextBox();
+            this.primitivaIgual = new System.Windows.Forms.Button();
+            this.primitivaSeleccionar = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.primitivaGrado = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.fasoresResultado = new System.Windows.Forms.TextBox();
             this.fasoresIgual = new System.Windows.Forms.Button();
@@ -57,11 +62,6 @@
             this.fasoresOpB = new System.Windows.Forms.TextBox();
             this.fasoresOpA = new System.Windows.Forms.TextBox();
             this.tEstado = new System.Windows.Forms.ToolTip(this.components);
-            this.primitivaResultado = new System.Windows.Forms.TextBox();
-            this.primitivaIgual = new System.Windows.Forms.Button();
-            this.primitivaSeleccionar = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.primitivaGrado = new System.Windows.Forms.TextBox();
             this.tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -339,78 +339,6 @@
             this.tabPage4.Text = "Comp: ˣ√ prim";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.fasoresResultado);
-            this.tabPage5.Controls.Add(this.fasoresIgual);
-            this.tabPage5.Controls.Add(this.label2);
-            this.tabPage5.Controls.Add(this.fasoresOpB);
-            this.tabPage5.Controls.Add(this.fasoresOpA);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(552, 50);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Fasores";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // fasoresResultado
-            // 
-            this.fasoresResultado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fasoresResultado.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fasoresResultado.Location = new System.Drawing.Point(400, 9);
-            this.fasoresResultado.Name = "fasoresResultado";
-            this.fasoresResultado.ReadOnly = true;
-            this.fasoresResultado.Size = new System.Drawing.Size(146, 30);
-            this.fasoresResultado.TabIndex = 5;
-            this.fasoresResultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.fasoresResultado.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
-            this.fasoresResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
-            // 
-            // fasoresIgual
-            // 
-            this.fasoresIgual.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.fasoresIgual.Font = new System.Drawing.Font("Cambria", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fasoresIgual.Location = new System.Drawing.Point(355, 6);
-            this.fasoresIgual.Name = "fasoresIgual";
-            this.fasoresIgual.Size = new System.Drawing.Size(39, 39);
-            this.fasoresIgual.TabIndex = 4;
-            this.fasoresIgual.Text = "=";
-            this.fasoresIgual.UseVisualStyleBackColor = true;
-            this.fasoresIgual.Click += new System.EventHandler(this.Igual_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Cambria", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(163, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 32);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "+";
-            // 
-            // fasoresOpB
-            // 
-            this.fasoresOpB.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fasoresOpB.Location = new System.Drawing.Point(199, 9);
-            this.fasoresOpB.Name = "fasoresOpB";
-            this.fasoresOpB.Size = new System.Drawing.Size(151, 30);
-            this.fasoresOpB.TabIndex = 3;
-            this.fasoresOpB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.fasoresOpB.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
-            this.fasoresOpB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
-            // 
-            // fasoresOpA
-            // 
-            this.fasoresOpA.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fasoresOpA.Location = new System.Drawing.Point(6, 9);
-            this.fasoresOpA.Name = "fasoresOpA";
-            this.fasoresOpA.Size = new System.Drawing.Size(151, 30);
-            this.fasoresOpA.TabIndex = 2;
-            this.fasoresOpA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.fasoresOpA.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
-            this.fasoresOpA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
-            // 
             // primitivaResultado
             // 
             this.primitivaResultado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -468,6 +396,78 @@
             this.primitivaGrado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.primitivaGrado.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
             this.primitivaGrado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.fasoresResultado);
+            this.tabPage5.Controls.Add(this.fasoresIgual);
+            this.tabPage5.Controls.Add(this.label2);
+            this.tabPage5.Controls.Add(this.fasoresOpB);
+            this.tabPage5.Controls.Add(this.fasoresOpA);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(552, 50);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Fasores";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // fasoresResultado
+            // 
+            this.fasoresResultado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fasoresResultado.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fasoresResultado.Location = new System.Drawing.Point(400, 12);
+            this.fasoresResultado.Name = "fasoresResultado";
+            this.fasoresResultado.ReadOnly = true;
+            this.fasoresResultado.Size = new System.Drawing.Size(146, 26);
+            this.fasoresResultado.TabIndex = 5;
+            this.fasoresResultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fasoresResultado.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
+            this.fasoresResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
+            // 
+            // fasoresIgual
+            // 
+            this.fasoresIgual.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.fasoresIgual.Font = new System.Drawing.Font("Cambria", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fasoresIgual.Location = new System.Drawing.Point(355, 6);
+            this.fasoresIgual.Name = "fasoresIgual";
+            this.fasoresIgual.Size = new System.Drawing.Size(39, 39);
+            this.fasoresIgual.TabIndex = 4;
+            this.fasoresIgual.Text = "=";
+            this.fasoresIgual.UseVisualStyleBackColor = true;
+            this.fasoresIgual.Click += new System.EventHandler(this.Igual_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Cambria", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(163, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(24, 25);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "+";
+            // 
+            // fasoresOpB
+            // 
+            this.fasoresOpB.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fasoresOpB.Location = new System.Drawing.Point(199, 12);
+            this.fasoresOpB.Name = "fasoresOpB";
+            this.fasoresOpB.Size = new System.Drawing.Size(151, 26);
+            this.fasoresOpB.TabIndex = 3;
+            this.fasoresOpB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fasoresOpB.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
+            this.fasoresOpB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
+            // 
+            // fasoresOpA
+            // 
+            this.fasoresOpA.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fasoresOpA.Location = new System.Drawing.Point(6, 12);
+            this.fasoresOpA.Name = "fasoresOpA";
+            this.fasoresOpA.Size = new System.Drawing.Size(151, 26);
+            this.fasoresOpA.TabIndex = 2;
+            this.fasoresOpA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fasoresOpA.TextChanged += new System.EventHandler(this.Operacion_TextChanged);
+            this.fasoresOpA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Operacion_KeyPress);
             // 
             // Central
             // 

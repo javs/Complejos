@@ -277,6 +277,8 @@ namespace Complejos
 
             raices = this.Raiz(n);
 
+            // w(0) nunca es raiz primitiva
+            primitivas.Add(null);
             // w(1) siempre es raiz primitiva
             primitivas.Add(raices[1]);
 
@@ -339,7 +341,9 @@ namespace Complejos
 
         public static Complejo Interpretar(string expresion)
         {
-            const string NUMERO_DECIMAL = @"(?:\s*([+-]?\s*[\d]+[\.\,]?[\d]*)\s*)";
+            const string NUMERO_DECIMAL = @"(?:([+-]?[\d]+[\.\,]?[\d]*))";
+
+            expresion = Regex.Replace(expresion, @"\s+", string.Empty);
 
             Match m;
             // Evita el default que agrega "AllowThousands"
