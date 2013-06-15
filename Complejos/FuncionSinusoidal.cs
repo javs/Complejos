@@ -59,20 +59,17 @@ namespace Complejos
             if (der.angulo == Angulo.Seno)
                 fase_der = fase_der - Math.PI / 2;
 
-            var amplitud_total = Math.Sqrt(
-                Math.Pow(izq.amplitud, 2) +
-                Math.Pow(der.amplitud, 2) +
-                2 * izq.amplitud * der.amplitud * Math.Cos(fase_izq - fase_der));
+            var fasor_izq = new Complejo(izq.amplitud, fase_izq, Complejo.Forma.Polar);
+            var fasor_der = new Complejo(der.amplitud, fase_der, Complejo.Forma.Polar);
 
-            var fase_total = Math.Atan(
-                (izq.amplitud * Math.Sin(fase_izq) + der.amplitud * Math.Sin(fase_der))
-                /
-                (izq.amplitud * Math.Cos(fase_izq) + der.amplitud * Math.Cos(fase_der)));
+            var fasor_suma = fasor_izq + fasor_der;
+
+            var fase_total = fasor_suma.b;
 
             if (angulo == Angulo.Seno)
-                fase_total = fase_total - Math.PI / 2;
+                fase_total = fase_total + Math.PI / 2;
 
-            return new FuncionSinusoidal(amplitud_total, angulo, izq.frecuencia, fase_total);
+            return new FuncionSinusoidal(fasor_suma.a, angulo, izq.frecuencia, fase_total);
         }
 
         public override string ToString()
@@ -110,14 +107,17 @@ namespace Complejos
 
             m = Regex.Match(
                 expresion,
-                @"^" + NUMERO_DECIMAL + @"(sin|cos)\s*\(" +
+                @"^" + NUMERO_DECIMAL + @"?(sin|cos)\s*\(" +
                 NUMERO_DECIMAL + "t" + NUMERO_DECIMAL + @"?\)\s*$",
                 RegexOptions.Compiled);
 
             if (m.Success)
             {
-                double amplitud = double.Parse(m.Groups[1].Value, style);
                 double frecuencia = double.Parse(m.Groups[3].Value, style);
+
+                double amplitud = m.Groups[1].Success
+                    ? double.Parse(m.Groups[1].Value, style)
+                    : 1;
 
                 double fase = m.Groups[4].Success
                     ? double.Parse(m.Groups[4].Value, style)
@@ -138,7 +138,7 @@ namespace Complejos
             }
 
             throw new ErrorDeSintaxisException(
-                "Se espera una funcion de la forma Asen(wt+o) o Acos(wt+o)");
+                "Se espera una funcion de la forma Asin(wt+o) o Acos(wt+o)");
         }
     }
 }
